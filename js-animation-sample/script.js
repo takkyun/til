@@ -1,6 +1,5 @@
 (function() {
-  var animationInterval = 20;
-  var animationStep = 3;
+  var animationStep = 10;
   function getPosition(obj) {
     var style = obj.currentStyle || document.defaultView.getComputedStyle(obj, '');
     return {
@@ -14,16 +13,16 @@
       x: Math.floor((target.x - position.x) / animationStep),
       y: Math.floor((target.y - position.y) / animationStep),
     }
-    if ( Math.abs(diff.x) < 1 ) {
+    if ( Math.abs(diff.x) < 0.01 ) {
       position.x = target.x;
     }
-    if ( Math.abs(diff.y) < 1 ) {
+    if ( Math.abs(diff.y) < 0.01 ) {
       position.y = target.y;
     }
     obj.style.left = (position.x + diff.x) + 'px';
     obj.style.top = (position.y + diff.x) + 'px';
     if (target.x !== position.x || target.y !== position.y) {
-      setTimeout(function() { updatePosition(obj, target); }, animationInterval);
+      requestAnimationFrame(function() { updatePosition(obj, target); });
     }
   }
 
