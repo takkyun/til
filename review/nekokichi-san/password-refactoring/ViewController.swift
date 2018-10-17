@@ -14,25 +14,26 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var passwordArray = [String]()
     
-    let UD = UserDefaults.standard
     // UserDefaults
+    let userDefaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        UD.removeObject(forKey: "passwordArray")
         // アプリ起動時にtableViewに表示されているパスワードを全て削除
+        userDefaults.removeObject(forKey: "passwordArray")
         
         tableView.delegate = self
         tableView.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        if let array:[String] = UD.object(forKey: "passwordArray") as? [String] {
-            passwordArray = UD.object(forKey: "passwordArray") as! [String]
+        super.viewWillAppear(animated)
+
         // userDefaultsから配列を取得
         // arrayはアンラップの為の変数
+        if let array = userDefaults.object(forKey: "passwordArray") as? [String] {
+            passwordArray = array
         }
         
         // リロード
