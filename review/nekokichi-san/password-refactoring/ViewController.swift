@@ -6,46 +6,37 @@
 //  Copyright © 2018年 Fujisawa-Yousuke. All rights reserved.
 //
 
-
-
 import UIKit
 
-class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource{
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     @IBOutlet weak var tableView: UITableView!
     
-    //RNArrayの値を取得する配列
     var passwordArray = [String]()
     
-    //UserDefaults
     let UD = UserDefaults.standard
+    // UserDefaults
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //アプリ起動時にtableViewに表示されているパスワードを全て削除
         UD.removeObject(forKey: "passwordArray")
+        // アプリ起動時にtableViewに表示されているパスワードを全て削除
         
         tableView.delegate = self
         tableView.dataSource = self
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
-        //UDから配列を取得
-        //arrayはアンラップの為の変数
         if let array:[String] = UD.object(forKey: "passwordArray") as? [String] {
             passwordArray = UD.object(forKey: "passwordArray") as! [String]
+        // userDefaultsから配列を取得
+        // arrayはアンラップの為の変数
         }
         
-        //リロード
+        // リロード
         tableView.reloadData()
-        
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -60,10 +51,10 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        //当初はセルの上にLabelを置いていたが、コピーできなかった
-        //セルのテキストにパスワードを表示
+        // 当初はセルの上にLabelを置いていたが、コピーできなかった
+        // セルのテキストにパスワードを表示
         cell.textLabel?.text = passwordArray[indexPath.row]
-        //テキストを中央寄せに
+        // テキストを中央寄せに
         cell.textLabel?.textAlignment = .center
         
         return cell
