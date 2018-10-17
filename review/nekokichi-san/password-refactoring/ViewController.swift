@@ -63,12 +63,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        //セルを呼び出す？
-        let cell = tableView.cellForRow(at: indexPath)
-        
-        //タップするとクリップボードに保存する
-        UIPasteboard.general.string = cell?.textLabel?.text
+        // タップするとクリップボードに保存する
+        UIPasteboard.general.string = passwordArray[indexPath.row]
         
     }
 
